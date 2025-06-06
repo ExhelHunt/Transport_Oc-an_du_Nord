@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Transition directionnelle du background</title>
+  <style>
+    .box {
+      width: 300px;
+      height: 150px;
+      background: linear-gradient(to right, royalblue 50%, darkorange 50%);
+      background-size: 200% 100%;
+      background-position: left center;
+      transition: background-position 0.6s ease;
+      border-radius: 10px;
+      margin: 50px auto;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .box:hover {
+      background-position: right center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="box"></div>
+
+</body>
+</html>
