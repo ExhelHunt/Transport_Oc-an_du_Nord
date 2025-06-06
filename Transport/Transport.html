@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TransBus - Service de Transport Public</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>tailwind.config={theme:{extend:{colors:{primary:'#0f766e',secondary:'#f97316'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+    <link rel="stylesheet" href="./Asset/CSS/style.css">
+</head>
+<body class="bg-gray-50">
+    <!-- Barre de navigation -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="#" class="logo text-primary text-2xl">TransBus</a>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#" class="text-primary font-medium">Accueil</a>
+                    <a href="#lignes" class="text-gray-700 hover:text-primary transition-colors">Lignes & Horaires</a>
+                    <a href="#itineraire" class="text-gray-700 hover:text-primary transition-colors">Itinéraires</a>
+                    <a href="#tarifs" class="text-gray-700 hover:text-primary transition-colors">Tarifs</a>
+                    <a href="#contact" class="text-gray-700 hover:text-primary transition-colors">Contact</a>
+                </nav>
+                <div class="flex items-center">
+                    <button class="bg-primary text-white px-4 py-2 !rounded-button whitespace-nowrap">Espace Client</button>
+                    <button class="md:hidden ml-4 w-10 h-10 flex items-center justify-center">
+                        <i class="ri-menu-line text-gray-700 ri-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Bannière d'alerte -->
+    <div class="bg-yellow-50 border-b border-yellow-100">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex items-center">
+                <div class="w-8 h-8 flex items-center justify-center mr-3">
+                    <i class="ri-alert-line text-yellow-500 ri-lg"></i>
+                </div>
+                <p class="text-sm text-yellow-700">
+                    <span class="font-semibold">Perturbation :</span> Travaux sur la ligne 3 du 25 au 30 mai. Consultez les horaires modifiés.
+                </p>
+                <a href="#" class="ml-auto text-xs text-yellow-600 underline">En savoir plus</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative overflow-hidden" style="background-image: url('https://readdy.ai/api/search-image?query=A%20modern%20public%20transport%20bus%20station%20with%20buses%2C%20passengers%2C%20and%20a%20clean%20urban%20environment.%20The%20image%20shows%20a%20well-organized%20transport%20hub%20with%20digital%20information%20displays%2C%20bus%20shelters%2C%20and%20people%20waiting.%20The%20scene%20is%20bright%20with%20natural%20daylight%2C%20showing%20a%20sustainable%20public%20transport%20system%20in%20a%20European%20city%20setting.&width=1600&height=800&seq=1&orientation=landscape'); background-size: cover; background-position: center;">
+        <div class="absolute inset-0 bg-gradient-to-r from-primary/90 to-primary/40"></div>
+        <div class="container mx-auto px-4 py-24 relative z-10">
+            <div class="max-w-2xl">
+                <h1 class="text-4xl md:text-5xl font-bold text-white mb-6">Voyagez facilement dans toute la ville</h1>
+                <p class="text-xl text-white/90 mb-8">Découvrez notre réseau de transport public moderne, fiable et accessible. Planifiez vos trajets, consultez les horaires et achetez vos tickets en quelques clics.</p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button class="bg-white text-primary px-6 py-3 font-medium !rounded-button whitespace-nowrap">Rechercher un itinéraire</button>
+                    <button class="bg-transparent border border-white text-white px-6 py-3 font-medium !rounded-button whitespace-nowrap">Consulter les horaires</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services rapides -->
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div class="w-14 h-14 flex items-center justify-center bg-primary/10 rounded-full mb-6">
+                        <i class="ri-map-pin-line text-primary ri-2x"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Recherche d'itinéraire</h3>
+                    <p class="text-gray-600 mb-6">Trouvez le meilleur chemin pour vous rendre à destination en quelques clics.</p>
+                    <a href="#itineraire" class="text-primary font-medium flex items-center">
+                        Planifier mon trajet
+                        <i class="ri-arrow-right-line ml-2"></i>
+                    </a>
+                </div>
+                <div class="bg-gray-50 p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div class="w-14 h-14 flex items-center justify-center bg-primary/10 rounded-full mb-6">
+                        <i class="ri-time-line text-primary ri-2x"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Horaires en temps réel</h3>
+                    <p class="text-gray-600 mb-6">Consultez les horaires de passage en temps réel pour toutes nos lignes.</p>
+                    <a href="#lignes" class="text-primary font-medium flex items-center">
+                        Voir les horaires
+                        <i class="ri-arrow-right-line ml-2"></i>
+                    </a>
+                </div>
+                <div class="bg-gray-50 p-8 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div class="w-14 h-14 flex items-center justify-center bg-primary/10 rounded-full mb-6">
+                        <i class="ri-ticket-line text-primary ri-2x"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Tarifs et abonnements</h3>
+                    <p class="text-gray-600 mb-6">Découvrez nos offres et choisissez la formule adaptée à vos besoins.</p>
+                    <a href="#tarifs" class="text-primary font-medium flex items-center">
+                        Consulter les tarifs
+                        <i class="ri-arrow-right-line ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- À propos de nous -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2">
+                    <img src="https://readdy.ai/api/search-image?query=A%20modern%20transportation%20control%20center%20with%20staff%20monitoring%20digital%20displays%20showing%20bus%20routes%20and%20schedules.%20The%20room%20has%20multiple%20screens%20with%20maps%20and%20real-time%20data.%20Staff%20members%20are%20working%20at%20computer%20stations%20in%20a%20clean%2C%20well-lit%20environment%20with%20a%20professional%20atmosphere.&width=600&height=400&seq=2&orientation=landscape" alt="Centre de contrôle TransBus" class="rounded-lg shadow-md w-full h-auto object-cover object-top">
+                </div>
+                <div class="md:w-1/2">
+                    <h2 class="text-3xl font-bold mb-6">À propos de TransBus</h2>
+                    <p class="text-gray-700 mb-4">
+                        Depuis 2010, TransBus s'engage à fournir un service de transport public de qualité, fiable et accessible à tous les habitants de la région.
+                    </p>
+                    <p class="text-gray-700 mb-6">
+                        Notre réseau comprend 15 lignes de bus couvrant plus de 200 km de routes, desservant les zones urbaines et périurbaines avec plus de 300 arrêts stratégiquement placés.
+                    </p>
+                    <div class="grid grid-cols-2 gap-6 mb-8">
+                        <div>
+                            <div class="text-3xl font-bold text-primary mb-2">15+</div>
+                            <p class="text-gray-600">Lignes de bus</p>
+                        </div>
+                        <div>
+                            <div class="text-3xl font-bold text-primary mb-2">50+</div>
+                            <p class="text-gray-600">Véhicules modernes</p>
+                        </div>
+                        <div>
+                            <div class="text-3xl font-bold text-primary mb-2">12M+</div>
+                            <p class="text-gray-600">Voyageurs par an</p>
+                        </div>
+                        <div>
+                            <div class="text-3xl font-bold text-primary mb-2">98%</div>
+                            <p class="text-gray-600">Taux de ponctualité</p>
+                        </div>
+                    </div>
+                    <button class="bg-primary text-white px-6 py-3 font-medium !rounded-button whitespace-nowrap">En savoir plus</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lignes et Horaires -->
+    <section id="lignes" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Lignes et Horaires</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Consultez les horaires de toutes nos lignes et planifiez vos déplacements en toute simplicité.</p>
+            </div>
+
+            <div class="mb-8">
+                <div class="flex flex-wrap gap-3 justify-center mb-8">
+                    <button class="bg-primary text-white px-4 py-2 !rounded-button whitespace-nowrap">Toutes les lignes</button>
+                    <button class="bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 !rounded-button whitespace-nowrap">Centre-ville</button>
+                    <button class="bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 !rounded-button whitespace-nowrap">Nord</button>
+                    <button class="bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 !rounded-button whitespace-nowrap">Sud</button>
+                    <button class="bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 !rounded-button whitespace-nowrap">Est</button>
+                    <button class="bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 !rounded-button whitespace-nowrap">Ouest</button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Ligne 1 -->
+                    <div class="border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="bg-blue-600 text-white p-4">
+                            <div class="flex justify-between items-center">
+                                <h3 class="text-xl font-bold">Ligne 1</h3>
+                                <span class="text-sm bg-white text-blue-600 px-2 py-1 rounded-full">Fréquence: 10 min</span>
+                            </div>
+                            <p class="mt-2">Gare Centrale → Centre Commercial</p>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between mb-4">
+                                <span class="text-gray-600">Premier départ: <strong>05:30</strong></span>
+                                <span class="text-gray-600">Dernier départ: <strong>23:00</strong></span>
+                            </div>
+                            <div class="bg-gray-50 p-3 rounded-lg mb-4">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="font-medium">Prochain passage:</span>
+                                    <span class="text-blue-600 font-bold">Dans 5 min</span>
+                                </div>
+                                <div class="h-1 w-full bg-gray-200 rounded-full overflow-hidden">
+                                    <div class="h-full bg-blue-600 rounded-full" style="width: 60%"></div>
+                                </div>
+                            </div>
+                            <div class="flex justify-between">
+                                <button class="text-primary flex items-center">
+                                    <i class="ri-time-line mr-1"></i> Horaires complets
+                                </button>
+                                <button class="text-primary flex items-center">
+                                    <i class="ri-map-line mr-1"></i> Voir le plan
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Ligne 2 -->
+                    <div class="border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="bg-green-600 text-white p-4">
+                            <div class="flex justify-between items-center">
+                                <h3 class="text-xl font-bold">Ligne 2</h3>
+                                <span class="text-sm bg-white text-green-600 px-2 py-1 rounded-full">Fréquence: 15 min</span>
+                            </div>
+                            <p class="mt-2">Université → Hôpital</p>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between mb-4">
+                                <span class="text-gray-600">Premier départ: <strong>06:00</strong></span>
+                                <span class="text-gray-600">Dernier départ: <strong>22:30</strong></span>
+                            </div>
+                            <div class="bg-gray-50 p-3 rounded-lg mb-4">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="font-medium">Prochain passage:</span>
+                                    <span class="text-green-600 font-bold">Dans 8 min</span>
+                                </div>
+                                <div class="h-1 w-full bg-gray-200 rounded-full overflow-hidden">
+                                    <div class="h-full bg-green-600 rounded-full" style="width: 45%"></div>
+                                </div>
+                            </div>
+                            <div class="flex justify-between">
+                                <button class="text-primary flex items-center">
+                                    <i class="ri-time-line mr-1"></i> Horaires complets
+                                </button>
+                                <button class="text-primary flex items-center">
+                                    <i class="ri-map-line mr-1"></i> Voir le plan
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Ligne 3 -->
+                    <div class="border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="bg-red-600 text-white p-4">
+                            <div class="flex justify-between items-center">
+                                <h3 class="text-xl font-bold">Ligne 3</h3>
+                                <span class="text-sm bg-white text-red-600 px-2 py-1 rounded-full">Fréquence: 12 min</span>
+                            </div>
+                            <p class="mt-2">Aéroport → Centre-ville</p>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between mb-4">
+                                <span class="text-gray-600">Premier départ: <strong>04:45</strong></span>
+                                <span class="text-gray-600">Dernier départ: <strong>00:15</strong></span>
+                            </div>
+                            <div class="bg-gray-50 p-3 rounded-lg mb-4">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="font-medium">Prochain passage:</span>
+                                    <span class="text-red-600 font-bold">Dans 3 min</span>
+                                </div>
+                                <div class="h-1 w-full bg-gray-200 rounded-full overflow-hidden">
+                                    <div class="h-full bg-red-600 rounded-full" style="width: 75%"></div>
+                                </div>
+                            </div>
+                            <div class="flex justify-between">
+                                <button class="text-primary flex items-center">
+                                    <i class="ri-time-line mr-1"></i> Horaires complets
+                                </button>
+                                <button class="text-primary flex items-center">
+                                    <i class="ri-map-line mr-1"></i> Voir le plan
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Ligne 4 -->
+                    <div class="border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="bg-purple-600 text-white p-4">
+                            <div class="flex justify-between items-center">
+                                <h3 class="text-xl font-bold">Ligne 4</h3>
+                                <span class="text-sm bg-white text-purple-600 px-2 py-1 rounded-full">Fréquence: 20 min</span>
+                            </div>
+                            <p class="mt-2">Parc des Expositions → Stade</p>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between mb-4">
+                                <span class="text-gray-600">Premier départ: <strong>06:15</strong></span>
+                                <span class="text-gray-600">Dernier départ: <strong>21:45</strong></span>
+                            </div>
+                            <div class="bg-gray-50 p-3 rounded-lg mb-4">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="font-medium">Prochain passage:</span>
+                                    <span class="text-purple-600 font-bold">Dans 12 min</span>
+                                </div>
+                                <div class="h-1 w-full bg-gray-200 rounded-full overflow-hidden">
+                                    <div class="h-full bg-purple-600 rounded-full" style="width: 35%"></div>
+                                </div>
+                            </div>
+                            <div class="flex justify-between">
+                                <button class="text-primary flex items-center">
+                                    <i class="ri-time-line mr-1"></i> Horaires complets
+                                </button>
+                                <button class="text-primary flex items-center">
+                                    <i class="ri-map-line mr-1"></i> Voir le plan
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Ligne 5 -->
+                    <div class="border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="bg-yellow-600 text-white p-4">
+                            <div class="flex justify-between items-center">
+                                <h3 class="text-xl font-bold">Ligne 5</h3>
+                                <span class="text-sm bg-white text-yellow-600 px-2 py-1 rounded-full">Fréquence: 15 min</span>
+                            </div>
+                            <p class="mt-2">Zone Industrielle → Quartier Résidentiel</p>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between mb-4">
+                                <span class="text-gray-600">Premier départ: <strong>05:45</strong></span>
+                                <span class="text-gray-600">Dernier départ: <strong>22:15</strong></span>
+                            </div>
+                            <div class="bg-gray-50 p-3 rounded-lg mb-4">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="font-medium">Prochain passage:</span>
+                                    <span class="text-yellow-600 font-bold">Dans 7 min</span>
+                                </div>
+                                <div class="h-1 w-full bg-gray-200 rounded-full overflow-hidden">
+                                    <div class="h-full bg-yellow-600 rounded-full" style="width: 55%"></div>
+                                </div>
+                            </div>
+                            <div class="flex justify-between">
+                                <button class="text-primary flex items-center">
+                                    <i class="ri-time-line mr-1"></i> Horaires complets
+                                </button>
+                                <button class="text-primary flex items-center">
+                                    <i class="ri-map-line mr-1"></i> Voir le plan
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Ligne 6 -->
+                    <div class="border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                        <div class="bg-teal-600 text-white p-4">
+                            <div class="flex justify-between items-center">
+                                <h3 class="text-xl font-bold">Ligne 6</h3>
+                                <span class="text-sm bg-white text-teal-600 px-2 py-1 rounded-full">Fréquence: 18 min</span>
+                            </div>
+                            <p class="mt-2">Place Centrale → Bibliothèque</p>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between mb-4">
+                                <span class="text-gray-600">Premier départ: <strong>06:30</strong></span>
+                                <span class="text-gray-600">Dernier départ: <strong>21:30</strong></span>
+                            </div>
+                            <div class="bg-gray-50 p-3 rounded-lg mb-4">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="font-medium">Prochain passage:</span>
+                                    <span class="text-teal-600 font-bold">Dans 10 min</span>
+                                </div>
+                                <div class="h-1 w-full bg-gray-200 rounded-full overflow-hidden">
+                                    <div class="h-full bg-teal-600 rounded-full" style="width: 40%"></div>
+                                </div>
+                            </div>
+                            <div class="flex justify-between">
+                                <button class="text-primary flex items-center">
+                                    <i class="ri-time-line mr-1"></i> Horaires complets
+                                </button>
+                                <button class="text-primary flex items-center">
+                                    <i class="ri-map-line mr-1"></i> Voir le plan
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-8">
+                <button class="bg-primary text-white px-6 py-3 font-medium !rounded-button whitespace-nowrap">Voir toutes les lignes</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Plan du réseau -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Plan du réseau</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Consultez notre plan interactif pour visualiser l'ensemble du réseau et planifier vos déplacements.</p>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-4 overflow-hidden">
+                <div class="relative h-[500px] rounded-lg overflow-hidden" style="background-image: url('https://public.readdy.ai/gen_page/map_placeholder_1280x720.png'); background-size: cover; background-position: center;">
+                    <div class="absolute top-4 left-4 bg-white p-3 rounded-lg shadow-md">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-8 h-8 flex items-center justify-center">
+                                <i class="ri-search-line text-gray-700 ri-lg"></i>
+                            </div>
+                            <input type="text" placeholder="Rechercher un arrêt" class="border-none bg-gray-100 rounded p-2 text-sm w-48">
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-2">
+                                <div class="w-4 h-4 bg-blue-600 rounded-full"></div>
+                                <span class="text-sm">Ligne 1</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-4 h-4 bg-green-600 rounded-full"></div>
+                                <span class="text-sm">Ligne 2</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-4 h-4 bg-red-600 rounded-full"></div>
+                                <span class="text-sm">Ligne 3</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-4 h-4 bg-purple-600 rounded-full"></div>
+                                <span class="text-sm">Ligne 4</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-4 h-4 bg-yellow-600 rounded-full"></div>
+                                <span class="text-sm">Ligne 5</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-4 right-4 flex gap-2">
+                        <button class="bg-white p-2 rounded-full shadow-md w-10 h-10 flex items-center justify-center">
+                            <i class="ri-add-line text-gray-700 ri-lg"></i>
+                        </button>
+                        <button class="bg-white p-2 rounded-full shadow-md w-10 h-10 flex items-center justify-center">
+                            <i class="ri-subtract-line text-gray-700 ri-lg"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-8">
+                <button class="bg-white border border-primary text-primary px-6 py-3 font-medium !rounded-button whitespace-nowrap">Télécharger le plan (PDF)</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recherche d'itinéraire -->
+    <section id="itineraire" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Recherche d'itinéraire</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Planifiez votre trajet en quelques clics et trouvez le meilleur itinéraire pour vous déplacer dans la ville.</p>
+            </div>
+
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-gray-50 rounded-lg shadow-md p-6 mb-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Départ</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <div class="w-5 h-5 flex items-center justify-center">
+                                        <i class="ri-map-pin-line text-primary"></i>
+                                    </div>
+                                </div>
+                                <input type="text" placeholder="Adresse ou arrêt de départ" class="border-none bg-white rounded w-full pl-10 p-3 text-sm">
+                                <button class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                    <div class="w-5 h-5 flex items-center justify-center">
+                                        <i class="ri-gps-line text-gray-500"></i>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Destination</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <div class="w-5 h-5 flex items-center justify-center">
+                                        <i class="ri-flag-line text-primary"></i>
+                                    </div>
+                                </div>
+                                <input type="text" placeholder="Adresse ou arrêt d'arrivée" class="border-none bg-white rounded w-full pl-10 p-3 text-sm">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Date</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <div class="w-5 h-5 flex items-center justify-center">
+                                        <i class="ri-calendar-line text-gray-500"></i>
+                                    </div>
+                                </div>
+                                <input type="date" value="2025-05-21" class="border-none bg-white rounded w-full pl-10 p-3 text-sm">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Heure</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <div class="w-5 h-5 flex items-center justify-center">
+                                        <i class="ri-time-line text-gray-500"></i>
+                                    </div>
+                                </div>
+                                <input type="time" value="14:30" class="border-none bg-white rounded w-full pl-10 p-3 text-sm">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Options</label>
+                            <div class="flex items-center gap-4">
+                                <div class="flex items-center gap-2">
+                                    <div class="custom-checkbox checked" id="checkbox1"></div>
+                                    <label for="checkbox1" class="text-sm text-gray-700">Le plus rapide</label>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <div class="custom-checkbox" id="checkbox2"></div>
+                                    <label for="checkbox2" class="text-sm text-gray-700">Moins de marche</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 text-center">
+                        <button class="bg-primary text-white px-6 py-3 font-medium !rounded-button whitespace-nowrap">Rechercher</button>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-gray-200 rounded-lg shadow-sm">
+                    <div class="p-4 border-b border-gray-200">
+                        <h3 class="text-lg font-semibold">Résultats de recherche</h3>
+                        <p class="text-sm text-gray-600">De <strong>Gare Centrale</strong> à <strong>Centre Commercial</strong> - Mercredi 21 mai 2025, départ à 14:30</p>
+                    </div>
+
+                    <div class="divide-y divide-gray-200">
+                        <!-- Itinéraire 1 -->
+                        <div class="p-4 hover:bg-gray-50">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-lg font-semibold">14:35 - 14:55</span>
+                                        <span class="text-sm bg-green-100 text-green-800 px-2 py-1 rounded">20 min</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600 mt-1">Direct - 0 correspondance</p>
+                                </div>
+                                <button class="bg-primary text-white px-4 py-2 text-sm !rounded-button whitespace-nowrap">Sélectionner</button>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="flex flex-col items-center">
+                                    <div class="w-4 h-4 rounded-full bg-blue-600"></div>
+                                    <div class="w-0.5 h-16 bg-blue-600"></div>
+                                    <div class="w-4 h-4 rounded-full bg-blue-600"></div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="mb-4">
+                                        <p class="font-medium">14:35 - Gare Centrale</p>
+                                        <div class="flex items-center mt-1">
+                                            <div class="flex items-center justify-center w-6 h-6 bg-blue-600 text-white rounded-full text-xs font-bold">1</div>
+                                            <span class="text-sm text-gray-600 ml-2">Direction Centre Commercial</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium">14:55 - Centre Commercial</p>
+                                        <p class="text-sm text-gray-600 mt-1">Arrivée à destination</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Itinéraire 2 -->
+                        <div class="p-4 hover:bg-gray-50">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-lg font-semibold">14:40 - 15:05</span>
+                                        <span class="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded">25 min</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600 mt-1">1 correspondance</p>
+                                </div>
+                                <button class="bg-white border border-primary text-primary px-4 py-2 text-sm !rounded-button whitespace-nowrap">Sélectionner</button>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="flex flex-col items-center">
+                                    <div class="w-4 h-4 rounded-full bg-green-600"></div>
+                                    <div class="w-0.5 h-12 bg-green-600"></div>
+                                    <div class="w-4 h-4 rounded-full bg-green-600 mb-1"></div>
+                                    <div class="w-0.5 h-12 bg-red-600"></div>
+                                    <div class="w-4 h-4 rounded-full bg-red-600"></div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="mb-4">
+                                        <p class="font-medium">14:40 - Gare Centrale</p>
+                                        <div class="flex items-center mt-1">
+                                            <div class="flex items-center justify-center w-6 h-6 bg-green-600 text-white rounded-full text-xs font-bold">2</div>
+                                            <span class="text-sm text-gray-600 ml-2">Direction Université</span>
+                                        </div>
+                                    </div>
+                                    <div class="mb-4">
+                                        <p class="font-medium">14:50 - Place du Marché</p>
+                                        <div class="flex items-center mt-1">
+                                            <div class="flex items-center justify-center w-6 h-6 bg-red-600 text-white rounded-full text-xs font-bold">3</div>
+                                            <span class="text-sm text-gray-600 ml-2">Direction Centre-ville</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium">15:05 - Centre Commercial</p>
+                                        <p class="text-sm text-gray-600 mt-1">Arrivée à destination</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Itinéraire 3 -->
+                        <div class="p-4 hover:bg-gray-50">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-lg font-semibold">14:45 - 15:10</span>
+                                        <span class="text-sm bg-yellow-100 text-yellow-800 px-2 py-1 rounded">25 min</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600 mt-1">Direct - 0 correspondance</p>
+                                </div>
+                                <button class="bg-white border border-primary text-primary px-4 py-2 text-sm !rounded-button whitespace-nowrap">Sélectionner</button>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="flex flex-col items-center">
+                                    <div class="w-4 h-4 rounded-full bg-blue-600"></div>
+                                    <div class="w-0.5 h-16 bg-blue-600"></div>
+                                    <div class="w-4 h-4 rounded-full bg-blue-600"></div>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="mb-4">
+                                        <p class="font-medium">14:45 - Gare Centrale</p>
+                                        <div class="flex items-center mt-1">
+                                            <div class="flex items-center justify-center w-6 h-6 bg-blue-600 text-white rounded-full text-xs font-bold">1</div>
+                                            <span class="text-sm text-gray-600 ml-2">Direction Centre Commercial</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium">15:10 - Centre Commercial</p>
+                                        <p class="text-sm text-gray-600 mt-1">Arrivée à destination</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tarifs -->
+    <section id="tarifs" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Tarifs et abonnements</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Découvrez nos offres et choisissez la formule adaptée à vos besoins.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <!-- Ticket unitaire -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="bg-primary/10 p-6">
+                        <h3 class="text-xl font-bold text-primary mb-2">Ticket unitaire</h3>
+                        <div class="flex items-end gap-1">
+                            <span class="text-3xl font-bold">1,80 €</span>
+                            <span class="text-gray-600 mb-1">/ trajet</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-3">
+                            <li class="flex items-start gap-3">
+                                <div class="w-5 h-5 flex items-center justify-center text-primary mt-0.5">
+                                    <i class="ri-check-line"></i>
+                                </div>
+                                <span class="text-gray-700">Valable 1 heure après validation</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <div class="w-5 h-5 flex items-center justify-center text-primary mt-0.5">
+                                    <i class="ri-check-line"></i>
+                                </div>
+                                <span class="text-gray-700">Correspondances illimitées</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <div class="w-5 h-5 flex items-center justify-center text-primary mt-0.5">
+                                    <i class="ri-check-line"></i>
+                                </div>
+                                <span class="text-gray-700">Disponible à bord des bus</span>
+                            </li>
+                        </ul>
+                        <div class="mt-6">
+                            <button class="w-full bg-primary text-white py-3 font-medium !rounded-button whitespace-nowrap">Acheter</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Carnet 10 tickets -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="bg-primary/10 p-6">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="text-xl font-bold text-primary mb-2">Carnet 10 tickets</h3>
+                                <div class="flex items-end gap-1">
+                                    <span class="text-3xl font-bold">15,00 €</span>
+                                    <span class="text-gray-600 mb-1">/ carnet</span>
+                                </div>
+                            </div>
+                            <span class="bg-primary text-white text-xs px-2 py-1 rounded-full">-17%</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-3">
+                            <li class="flex items-start gap-3">
+                                <div class="w-5 h-5 flex items-center justify-center text-primary mt-0.5">
+                                    <i class="ri-check-line"></i>
+                                </div>
+                                <span class="text-gray-700">1,50 € par ticket</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <div class="w-5 h-5 flex items-center justify-center text-primary mt-0.5">
+                                    <i class="ri-check-line"></i>
+                                </div>
+                                <span class="text-gray-700">Valable 1 heure après validation</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <div class="w-5 h-5 flex items-center justify-center text-primary mt-0.5">
+                                    <i class="ri-check-line"></i>
+                                </div>
+                                <span class="text-gray-700">Disponible en agence et points de vente</span>
+                            </li>
+                        </ul>
+                        <div class="mt-6">
+                            <button class="w-full bg-primary text-white py-3 font-medium !rounded-button whitespace-nowrap">Acheter</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Abonnement mensuel -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden relative">
+                    <div class="absolute top-0 right-0 bg-secondary text-white text-xs px-4 py-1 rounded-bl-lg font-medium">Populaire</div>
+                    <div class="bg-primary/10 p-6">
+                        <h3 class="text-xl font-bold text-primary mb-2">Abonnement mensuel</h3>
+                        <div class="flex items-end gap-1">
+                            <span class="text-3xl font-bold">45,00 €</span>
+                            <span class="text-gray-600 mb-1">/ mois</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-3">
+                            <li class="flex items-start gap-3">
+                                <div class="w-5 h-5 flex items-center justify-center text-primary mt-0.5">
+                                    <i class="ri-check-line"></i>
+                                </div>
+                                <span class="text-gray-700">Voyages illimités</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <div class="w-5 h-5 flex items-center justify-center text-primary mt-0.5">
+                                    <i class="ri-check-line"></i>
+                                </div>
+                                <span class="text-gray-700">Valable sur tout le réseau</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <div class="w-5 h-5 flex items-center justify-center text-primary mt-0.5">
+                                    <i class="ri-check-line"></i>
+                                </div>
+                                <span class="text-gray-700">Réductions sur les services partenaires</span>
+                            </li>
+                        </ul>
+                        <div class="mt-6">
+                            <button class="w-full bg-primary text-white py-3 font-medium !rounded-button whitespace-nowrap">S'abonner</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="p-6 border-b border-gray-200">
+                    <h3 class="text-xl font-bold">Tarifs spéciaux et réductions</h3>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="text-lg font-semibold mb-4">Tarifs réduits</h4>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center pb-2 border-b border-gray-100">
+                                    <div>
+                                        <p class="font-medium">Jeunes (- 26 ans)</p>
+                                        <p class="text-sm text-gray-600">Sur présentation d'un justificatif</p>
+                                    </div>
+                                    <span class="font-semibold text-primary">-50%</span>
+                                </div>
+                                <div class="flex justify-between items-center pb-2 border-b border-gray-100">
+                                    <div>
+                                        <p class="font-medium">Seniors (+ 65 ans)</p>
+                                        <p class="text-sm text-gray-600">Sur présentation d'un justificatif</p>
+                                    </div>
+                                    <span class="font-semibold text-primary">-30%</span>
+                                </div>
+                                <div class="flex justify-between items-center pb-2 border-b border-gray-100">
+                                    <div>
+                                        <p class="font-medium">Demandeurs d'emploi</p>
+                                        <p class="text-sm text-gray-600">Sur présentation d'un justificatif</p>
+                                    </div>
+                                    <span class="font-semibold text-primary">-75%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-semibold mb-4">Abonnements spéciaux</h4>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center pb-2 border-b border-gray-100">
+                                    <div>
+                                        <p class="font-medium">Abonnement annuel</p>
+                                        <p class="text-sm text-gray-600">Engagement 12 mois</p>
+                                    </div>
+                                    <span class="font-semibold">420,00 €</span>
+                                </div>
+                                <div class="flex justify-between items-center pb-2 border-b border-gray-100">
+                                    <div>
+                                        <p class="font-medium">Pass Famille</p>
+                                        <p class="text-sm text-gray-600">2 adultes + enfants</p>
+                                    </div>
+                                    <span class="font-semibold">80,00 €/mois</span>
+                                </div>
+                                <div class="flex justify-between items-center pb-2 border-b border-gray-100">
+                                    <div>
+                                        <p class="font-medium">Pass Entreprise</p>
+                                        <p class="text-sm text-gray-600">Pour les salariés</p>
+                                    </div>
+                                    <span class="font-semibold">Sur devis</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Contactez-nous</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Une question, une suggestion ou une réclamation ? N'hésitez pas à nous contacter.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-xl font-semibold mb-6">Formulaire de contact</h3>
+                    <form>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Nom *</label>
+                                <input type="text" class="border-none bg-gray-50 rounded w-full p-3" required>
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 font-medium mb-2">Prénom *</label>
+                                <input type="text" class="border-none bg-gray-50 rounded w-full p-3" required>
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-gray-700 font-medium mb-2">Email *</label>
+                            <input type="email" class="border-none bg-gray-50 rounded w-full p-3" required>
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-gray-700 font-medium mb-2">Téléphone</label>
+                            <input type="tel" class="border-none bg-gray-50 rounded w-full p-3">
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-gray-700 font-medium mb-2">Objet *</label>
+                            <select class="border-none bg-gray-50 rounded w-full p-3 pr-8 appearance-none" required>
+                                <option value="">Sélectionnez un objet</option>
+                                <option value="information">Demande d'information</option>
+                                <option value="reclamation">Réclamation</option>
+                                <option value="suggestion">Suggestion</option>
+                                <option value="autre">Autre</option>
+                            </select>
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-gray-700 font-medium mb-2">Message *</label>
+                            <textarea rows="5" class="border-none bg-gray-50 rounded w-full p-3" required></textarea>
+                        </div>
+                        <div class="mb-6 flex items-center gap-2">
+                            <div class="custom-checkbox" id="checkbox3"></div>
+                            <label for="checkbox3" class="text-sm text-gray-700">J'accepte que mes données personnelles soient traitées conformément à la politique de confidentialité.</label>
+                        </div>
+                        <button type="submit" class="bg-primary text-white px-6 py-3 font-medium !rounded-button whitespace-nowrap">Envoyer</button>
+                    </form>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-6">Informations de contact</h3>
+                    <div class="bg-gray-50 rounded-lg p-6 mb-6">
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full text-primary">
+                                    <i class="ri-map-pin-line ri-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-900">Adresse</h4>
+                                    <p class="text-gray-700 mt-1">15 Avenue de la République<br>75001 Paris, France</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full text-primary">
+                                    <i class="ri-phone-line ri-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-900">Téléphone</h4>
+                                    <p class="text-gray-700 mt-1">+33 1 23 45 67 89</p>
+                                    <p class="text-sm text-gray-500">Lun-Ven: 8h30-18h00</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-full text-primary">
+                                    <i class="ri-mail-line ri-lg"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-900">Email</h4>
+                                    <p class="text-gray-700 mt-1">contact@transbus.fr</p>
+                                    <p class="text-sm text-gray-500">Nous répondons sous 24h</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 class="text-xl font-semibold mb-4">Nos agences</h3>
+                    <div class="bg-gray-50 rounded-lg overflow-hidden mb-6">
+                        <div class="p-4 border-b border-gray-200">
+                            <div class="flex justify-between items-center">
+                                <h4 class="font-medium">Agence Centrale</h4>
+                                <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">Ouverte</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-1">15 Avenue de la République, 75001 Paris</p>
+                            <p class="text-xs text-gray-500 mt-1">Lun-Ven: 8h30-18h00 | Sam: 9h00-12h00</p>
+                        </div>
+                        <div class="p-4 border-b border-gray-200">
+                            <div class="flex justify-between items-center">
+                                <h4 class="font-medium">Agence Nord</h4>
+                                <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">Ouverte</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-1">45 Rue du Commerce, 75015 Paris</p>
+                            <p class="text-xs text-gray-500 mt-1">Lun-Ven: 9h00-17h00</p>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-center">
+                                <h4 class="font-medium">Agence Sud</h4>
+                                <span class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded">Fermée</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-1">8 Boulevard Saint-Michel, 75006 Paris</p>
+                            <p class="text-xs text-gray-500 mt-1">Lun-Ven: 9h00-17h00</p>
+                        </div>
+                    </div>
+
+                    <h3 class="text-xl font-semibold mb-4">Suivez-nous</h3>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-full text-gray-700">
+                            <i class="ri-facebook-fill"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-full text-gray-700">
+                            <i class="ri-twitter-fill"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-full text-gray-700">
+                            <i class="ri-instagram-fill"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-full text-gray-700">
+                            <i class="ri-linkedin-fill"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">Questions fréquentes</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Trouvez rapidement des réponses aux questions les plus courantes.</p>
+            </div>
+
+            <div class="max-w-3xl mx-auto">
+                <div class="space-y-4">
+                    <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                        <button class="w-full flex justify-between items-center p-4 text-left font-medium" id="faq1-btn">
+                            <span>Comment acheter un ticket ?</span>
+                            <i class="ri-arrow-down-s-line text-gray-500"></i>
+                        </button>
+                        <div class="p-4 pt-0 border-t border-gray-100 hidden" id="faq1-content">
+                            <p class="text-gray-700">
+                                Vous pouvez acheter vos tickets de plusieurs façons :
+                            </p>
+                            <ul class="list-disc pl-5 mt-2 text-gray-700 space-y-1">
+                                <li>À bord des bus auprès du conducteur (espèces uniquement)</li>
+                                <li>Dans nos agences commerciales</li>
+                                <li>Chez nos revendeurs agréés (tabacs, kiosques)</li>
+                                <li>Sur notre application mobile</li>
+                                <li>Sur notre site internet (e-ticket)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                        <button class="w-full flex justify-between items-center p-4 text-left font-medium" id="faq2-btn">
+                            <span>Comment fonctionne l'abonnement mensuel ?</span>
+                            <i class="ri-arrow-down-s-line text-gray-500"></i>
+                        </button>
+                        <div class="p-4 pt-0 border-t border-gray-100 hidden" id="faq2-content">
+                            <p class="text-gray-700">
+                                L'abonnement mensuel vous permet de voyager de manière illimitée sur l'ensemble du réseau pendant 30 jours consécutifs à partir de la date de début choisie. Il est disponible sur carte sans contact personnalisée ou sur notre application mobile. Vous pouvez souscrire en agence ou en ligne, avec possibilité de prélèvement automatique pour un renouvellement sans interruption.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                        <button class="w-full flex justify-between items-center p-4 text-left font-medium" id="faq3-btn">
+                            <span>Que faire en cas de perte de ma carte d'abonnement ?</span>
+                            <i class="ri-arrow-down-s-line text-gray-500"></i>
+                        </button>
+                        <div class="p-4 pt-0 border-t border-gray-100 hidden" id="faq3-content">
+                            <p class="text-gray-700">
+                                En cas de perte ou de vol de votre carte d'abonnement, vous devez vous rendre dans l'une de nos agences commerciales muni d'une pièce d'identité. Nous procéderons à la désactivation de l'ancienne carte et à l'émission d'un duplicata. Des frais de 10€ seront appliqués pour la réédition de la carte, mais vos droits et abonnements seront transférés sans coût supplémentaire.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                        <button class="w-full flex justify-between items-center p-4 text-left font-medium" id="faq4-btn">
+                            <span>Les bus sont-ils accessibles aux personnes à mobilité réduite ?</span>
+                            <i class="ri-arrow-down-s-line text-gray-500"></i>
+                        </button>
+                        <div class="p-4 pt-0 border-t border-gray-100 hidden" id="faq4-content">
+                            <p class="text-gray-700">
+                                Oui, tous nos bus sont équipés de planchers bas et de rampes d'accès pour les personnes en fauteuil roulant. Des emplacements spécifiques sont réservés à l'intérieur des véhicules. De plus, nos arrêts principaux sont aménagés pour faciliter l'accès. Si vous avez besoin d'une assistance particulière, n'hésitez pas à contacter notre service client au moins 24h à l'avance.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                        <button class="w-full flex justify-between items-center p-4 text-left font-medium" id="faq5-btn">
+                            <span>Comment signaler un objet perdu dans un bus ?</span>
+                            <i class="ri-arrow-down-s-line text-gray-500"></i>
+                        </button>
+                        <div class="p-4 pt-0 border-t border-gray-100 hidden" id="faq5-content">
+                            <p class="text-gray-700">
+                                Si vous avez perdu un objet dans l'un de nos bus, vous pouvez :
+                            </p>
+                            <ul class="list-disc pl-5 mt-2 text-gray-700 space-y-1">
+                                <li>Contacter notre service des objets trouvés au 01 23 45 67 90</li>
+                                <li>Vous rendre à notre agence centrale</li>
+                                <li>Remplir le formulaire en ligne dans la section "Objets trouvés" de notre site</li>
+                            </ul>
+                            <p class="text-gray-700 mt-2">
+                                Les objets trouvés sont conservés pendant 1 mois avant d'être remis aux autorités compétentes.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-8">
+                    <a href="#" class="text-primary font-medium flex items-center justify-center">
+                        Voir toutes les questions
+                        <i class="ri-arrow-right-line ml-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-16 bg-primary/5">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-3xl font-bold mb-4">Restez informé</h2>
+                <p class="text-gray-600 mb-8">Abonnez-vous à notre newsletter pour recevoir les dernières actualités, les modifications d'horaires et les offres spéciales.</p>
+                <form class="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
+                    <input type="email" placeholder="Votre adresse email" class="border-none bg-white rounded flex-1 p-3 shadow-sm">
+                    <button type="submit" class="bg-primary text-white px-6 py-3 font-medium !rounded-button whitespace-nowrap">S'abonner</button>
+                </form>
+                <p class="text-sm text-gray-500 mt-4">En vous inscrivant, vous acceptez de recevoir nos communications et confirmez avoir lu notre politique de confidentialité.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 logo">TransBus</h3>
+                    <p class="text-gray-400 mb-6">Votre service de transport public de confiance depuis 2010.</p>
+                    <div class="flex gap-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="ri-facebook-fill ri-lg"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="ri-twitter-fill ri-lg"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="ri-instagram-fill ri-lg"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="ri-linkedin-fill ri-lg"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Liens rapides</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Accueil</a></li>
+                        <li><a href="#lignes" class="text-gray-400 hover:text-white transition-colors">Lignes & Horaires</a></li>
+                        <li><a href="#itineraire" class="text-gray-400 hover:text-white transition-colors">Recherche d'itinéraire</a></li>
+                        <li><a href="#tarifs" class="text-gray-400 hover:text-white transition-colors">Tarifs & Abonnements</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Espace Client</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Informations</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Actualités</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Perturbations</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Accessibilité</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Objets trouvés</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Recrutement</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Mentions légales</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Contact</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-3">
+                            <div class="w-5 h-5 flex items-center justify-center text-gray-400 mt-0.5">
+                                <i class="ri-map-pin-line"></i>
+                            </div>
+                            <span class="text-gray-400">15 Avenue de la République<br>75001 Paris, France</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <div class="w-5 h-5 flex items-center justify-center text-gray-400 mt-0.5">
+                                <i class="ri-phone-line"></i>
+                            </div>
+                            <span class="text-gray-400">+33 1 23 45 67 89</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <div class="w-5 h-5 flex items-center justify-center text-gray-400 mt-0.5">
+                                <i class="ri-mail-line"></i>
+                            </div>
+                            <span class="text-gray-400">contact@transbus.fr</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400 text-sm mb-4 md:mb-0">© 2025 TransBus. Tous droits réservés.</p>
+                    <div class="flex items-center gap-4">
+                        <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Politique de confidentialité</a>
+                        <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Conditions d'utilisation</a>
+                        <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Plan du site</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Checkbox functionality
+            const checkboxes = document.querySelectorAll('.custom-checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('click', function() {
+                    this.classList.toggle('checked');
+                });
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // FAQ accordion functionality
+            const faqButtons = document.querySelectorAll('[id$="-btn"]');
+            faqButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const contentId = this.id.replace('-btn', '-content');
+                    const content = document.getElementById(contentId);
+                    content.classList.toggle('hidden');
+                    
+                    const icon = this.querySelector('i');
+                    if (content.classList.contains('hidden')) {
+                        icon.className = 'ri-arrow-down-s-line text-gray-500';
+                    } else {
+                        icon.className = 'ri-arrow-up-s-line text-gray-500';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
